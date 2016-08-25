@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>Pizza</title>
+</head>
+
+<body>
+	<b>Pizza Hoots Order Form</b><br>
+	<img src="http://cache.boston.com/bonzai-fba/Original_Photo/2011/11/23/pizza__1322067494_5957.jpg" width="200px" title="pizza_pic">
+	<form onsubmit="return orderPizza()">
+		Name:<br>
+		<input type="text" name="name" id="name" placeholder="your name" required pattern="[a-zA-Z\s]*"><br><br>
+		Address:#### Street Name ...<br>
+		<input type="text" name="street" id="street" placeholder="delivery address" required pattern="\d\d\d\d[ ].*"><br><br>
+		Phone Number: 123-123-1234<br>
+		<input type="text" name="phone" id="phone" placeholder="123-123-1234" required pattern="\d\d\d-\d\d\d-\d\d\d\d"><br><br>
+		<u>Pizza Size</u><br>
+		<input type="radio" id="size-1" name="size" value="Large"> Large
+		<input type="radio" id="size-2" name="size" value="Medium"> Medium
+		<input type="radio" id="size-3" name="size" value="Small"> Small
+		<br><br>
+		<u>Pizza Toppings</u><br>
+		<input type="checkbox" id="topping-1" name="toppings" value="Sausage"> Sausage
+		<input type="checkbox" id="topping-2" name="toppings" value="Pepperoni"> Pepperoni
+		<input type="checkbox" id="topping-3" name="toppings" value="Olives"> Olives
+		<input type="checkbox" id="topping-4" name="toppings" value="Anchovies"> Anchovies
+		<input type="checkbox" id="topping-5" name="toppings" value="Onions"> Onions
+		<br><br>
+		<input type="submit" value="Place Order">
+		<input type="reset" value="Clear">
+	</form>
+	<script>
+	function orderPizza() {
+		var size_selected = (document.getElementById('size-1').checked || document.getElementById('size-2').checked ||
+		 document.getElementById('size-3').checked);
+		console.log("size_selected is " + size_selected)
+		if (!size_selected) {
+			alert("Please select a size");
+			return false;
+		}
+		var topping_selected = (document.getElementById('topping-1').checked || document.getElementById('topping-2').checked ||
+		 document.getElementById('topping-3').checked || document.getElementById('topping-4').checked || document.getElementById('topping-5').checked);
+		if (!topping_selected) {
+			alert("Please select at least one topping");
+			return false;
+		}
+		return true;
+	}
+	</script>
+</body>
+</html>
