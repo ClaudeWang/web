@@ -2,6 +2,7 @@
 <html lang="en-US">
 <head>
 	<title>Form Processor</title>
+	<meta name="author" content="Ziyun Wang">
 </head>
 <body onload="decodeUrl()">
 	<h1>Form Processor</h1>
@@ -45,22 +46,25 @@
 	</table>
 	<script type="text/javascript">
 		function decodeUrl() {
-			var test = location.search.substring(1).split('&');
-			for (var i = 0; i < test.length; i++) {
-				var pair = test[i].split("=");
+			var keyToValue = location.search.substring(1).split('&');
+			for (var i = 0; i < keyToValue.length; i++) {
+				//get key value pair.
+				var pair = keyToValue[i].split("=");
 				var field = pair[0];
 				var value = pair[1];
+				//process hidden time stamp to make it human readable.
 				if (field == "hidden_time")
 					document.getElementById(decodeURIComponent(field) + "_value").innerHTML = new Date(parseInt(decodeURIComponent(value)));
+				//process the case when display name is missing.
 				else if (field == "display_name" && value.length == 0)
 					document.getElementById(decodeURIComponent(field) + "_value").innerHTML = "N/A";
+				//the default case.
 				else
 					document.getElementById(decodeURIComponent(field) + "_value").innerHTML = decodeURIComponent(value);
 			}
 		}
 	</script>
 </body>
-
 <style>
 	h1 {
 		text-align: center;
@@ -76,6 +80,5 @@
 		border: 1px solid;
 		border-collapse: collapse;
 	}
- 
 </style>
 </html>

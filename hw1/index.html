@@ -2,8 +2,8 @@
 <html lang="en-US">
 <head>
 	<title> Registration Page</title>
+	<meta name="author" content="Ziyun Wang">
 </head>
-
 <body>
 	<img src="http://www.rice.edu/_images/rice-logo.jpg" width="100px" title="Rice_log" style="display:block; margin: auto;">
 	<h1 style="text-align: center;">Welcome to RiceBook</h1>
@@ -32,34 +32,32 @@
 </body>
 <script type="text/javascript">
 	function validateFields() {
-		//check if passwords match.
+		//Check if passwords match.
 		if (document.getElementById("password").value != document.getElementById("password_conf").value) {
 			alert("Please make sure your password and password confirmation match.");
 			return false;
 		}
-		//check if password starts with a digit.
+		//Check if password starts with a digit.
 		var password = document.getElementById("account_name").value;
 		var firstChar = password.charAt(0);
 		if (firstChar >= '0' && firstChar <= '9') {
 			alert("The Account name cannot start with a digit.");
 			return false;
 		}
-		//validate date of birth
+		//Validate date of birth.
 		var cur = new Date();
 		var dob = new Date(document.getElementById("dob").value);
 		cur.setFullYear(cur.getFullYear() - 18);
-		//if current date - 18 years is earlier than dob, reject the request.
+		//If current date - 18 years is earlier than dob, reject the request.
 		if (dob > cur) {
 			alert("Please select a valid date of birth. You should be at least 18 years old to be able to register");
 			return false;
 		}
-		//set time stamp
+		//Set time stamp.
 		document.getElementById("hidden_time").value = (new Date()).getTime();
 		return true;
 	}
 </script>
-
-
 <style>
 	body {
 		text-align: center;
