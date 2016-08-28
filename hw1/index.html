@@ -5,12 +5,12 @@
 </head>
 
 <body>
-	<h1 style="text-align: center;">Welcome to RiceBook</h1><br>
 	<img src="http://www.rice.edu/_images/rice-logo.jpg" width="100px" title="Rice_log" style="display:block; margin: auto;">
+	<h1 style="text-align: center;">Welcome to RiceBook</h1>
 	<p>Please register first!</p>
 	<form onsubmit="return validateFields()" action="formProcessor.html" method="get">
 		Account Name:
-		<input type="text" name="account_name" id="account_name" placeholder="Your account name" required> <br><br>
+		<input type="text" name="account_name" id="account_name" placeholder="Your account name" required pattern="[a-zA-Z]*"> <br><br>
 		Display Name:
 		<input type="text" name="display_name" id="display_name" placeholder="Your display name"> <br><br>
 		Email Address:
