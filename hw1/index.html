@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title> Registration Page</title>
+</head>
+
+<body>
+	<h1 style="text-align: center;">Welcome to RiceBook</h1><br>
+	<img src="http://www.rice.edu/_images/rice-logo.jpg" width="100px" title="Rice_log" style="display:block; margin: auto;">
+	<p>Please register first!</p>
+	<form onsubmit="return validateFields()" action="formProcessor.html" method="get">
+		Account Name:
+		<input type="text" name="account_name" id="account_name" placeholder="Your account name" required> <br><br>
+		Display Name:
+		<input type="text" name="display_name" id="display_name" placeholder="Your display name"> <br><br>
+		Email Address:
+		<input type="email" name="email_address" id="email_address" placeholder="Your email address" required> <br><br>
+		Phone Number:
+		<input type="text" name="phone_number" id="phone_number" placeholder="xxx-xxx-xxxx" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"> <br><br>
+		Date of Birth:
+		<input type="date" name="dob" id="dob" placeholder="Your date of birth" required> <br><br>
+		zipcode:
+		<input type="text" name="zipcode" id="zipcode" placeholder="Your zip code" required pattern="[0-9]{5}"> <br><br>
+		password:
+		<input type="password" name="password" id="password" placeholder="Your password" required> <br><br>
+		password confirmation:
+		<input type="password" id="password_conf" placeholder="Retype your password" required> <br><br>
+		<input type="hidden" name="hidden_time" id="hidden_time">
+		<input type="submit" id="submit_button">
+		<input type="reset" id="reset_button">
+	</form>
+</body>
+<script type="text/javascript">
+	function validateFields() {
+		//check if passwords match.
+		if (document.getElementById("password").value != document.getElementById("password_conf").value) {
+			alert("Please make sure your password and password confirmation match.");
+			return false;
+		}
+		//check if password starts with a digit.
+		var password = document.getElementById("account_name").value;
+		var firstChar = password.charAt(0);
+		if (firstChar >= '0' && firstChar <= '9') {
+			alert("The Account name cannot start with a digit.");
+			return false;
+		}
+		//validate date of birth
+		var cur = new Date();
+		var dob = new Date(document.getElementById("dob").value);
+		cur.setFullYear(cur.getFullYear() - 18);
+		//if current date - 18 years is earlier than dob, reject the request.
+		if (dob > cur) {
+			alert("Please select a valid date of birth. You should be at least 18 years old to be able to register");
+			return false;
+		}
+		//set time stamp
+		document.getElementById("hidden_time").value = (new Date()).getTime();
+		return true;
+	}
+</script>
+
+
+<style>
+	body {
+		text-align: center;
+	}
+	p {
+		text-align: center;
+	}
+	form {
+		width: 25%;
+		display: inline-block;
+		text-align: left;
+	}
+	input {
+		float: right;
+	}
+
+</style>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>Form Processor</title>
+</head>
+<body onload="decodeUrl()">
+	<h1>Form Processor</h1>
+	<table>
+		<tr>
+			<th>Field</th>
+			<th>Value</th>
+		</tr>
+		<tr>
+			<td id="account_name">Account Name</td>
+			<td id="account_name_value"></td>
+		</tr>
+		<tr>
+			<td id="display_name">Display Name</td>
+			<td id="display_name_value"></td>
+		</tr>
+		<tr>
+			<td id="email_address">Email Address</td>
+			<td id="email_address_value"></td>
+		</tr>
+		<tr>
+			<td id="phone_number">Phone Number</td>
+			<td id="phone_number_value"></td>
+		</tr>
+		<tr>
+			<td id="dob">Date of Birth</td>
+			<td id="dob_value"></td>
+		</tr>
+		<tr>
+			<td id="zipcode">Zip Code</td>
+			<td id="zipcode_value"></td>
+		</tr>
+		<tr>
+			<td id="password">Password</td>
+			<td id="password_value"></td>
+		</tr>
+		<tr>
+			<td id="hidden_time">Time Stamp</td>
+			<td id="hidden_time_value"></td>
+		</tr>
+	</table>
+	<script type="text/javascript">
+		function decodeUrl() {
+			var test = location.search.substring(1).split('&');
+			for (var i = 0; i < test.length; i++) {
+				var pair = test[i].split("=");
+				var field = pair[0];
+				var value = pair[1];
+				if (field == "hidden_time")
+					document.getElementById(decodeURIComponent(field) + "_value").innerHTML = new Date(parseInt(decodeURIComponent(value)));
+				else if (field == "display_name" && value.length == 0)
+					document.getElementById(decodeURIComponent(field) + "_value").innerHTML = "N/A";
+				else
+					document.getElementById(decodeURIComponent(field) + "_value").innerHTML = decodeURIComponent(value);
+			}
+		}
+	</script>
+</body>
+
+<style>
+	h1 {
+		text-align: center;
+	}
+	table {
+		border:  3px solid;
+		border-collapse: collapse;
+		width: 50%;
+		margin: auto;
+		text-align: center;
+	}
+	th, td {
+		border: 1px solid;
+		border-collapse: collapse;
+	}
+ 
+</style>
+</html>
