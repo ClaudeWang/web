@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>Introduction</title>
+</head>
+
+<body onload="timedAction()">
+	<b>Introduction</b>
+	<p>Name: Ziyun Wang</p>
+	<img src="http://66.media.tumblr.com/tumblr_m02yywfI2Y1r8oj6w.gif" width="200px" title="Rice Logo">
+	<p>After my summer internship, I drove back from Austin. Oops I'm runnig out of time. Anyways, I am excited to start web development!</p>
+	<p>Here is my facebook link: <a href="https://www.facebook.com/ziyun.wang.102?fref=ts">Here</a></p>
+	<textarea rows="4" cols="50" id="textArea1">Leave a response. This will not be submitted though!</textarea>
+	<br/>
+	<input type="submit">
+	<input type="button" value="Clear" onclick="clearText();">
+	<br/><br/>
+	<b>Count Down: <span id="counter">15</span></b>
+	<input type="button" value="Pause Timer" onclick="pauseTimer()">
+	<input type="button" value="Resume Timer" onclick="resumeTimer()">
+
+</body>
+<script>
+	var enabled = true;
+	function clearText() {
+		document.getElementById("textArea1").value = "";
+	}
+	function timedAction() {
+		setInterval(decrementCounter, 1000);
+		setTimeout(function(){
+			alert("The page will redirect when the counter reaches zero.");
+		}, 5000);
+		//decrementCounter();
+	}
+	function decrementCounter() {
+		var cur = document.getElementById("counter").innerHTML;
+		if (enabled == true){
+			cur--;
+			document.getElementById("counter").innerHTML = cur;
+			if (cur == 0){
+				window.location = "http://www.clear.rice.edu/comp431/sample/hello.html"
+				enabled = false;
+			}
+			return;
+		}
+	}
+	function pauseTimer() {enabled=false}
+	function resumeTimer() {enabled=true}
+
+</script>
+</html>
+
