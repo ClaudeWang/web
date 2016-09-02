@@ -35,6 +35,7 @@ window.onload = function() {
 			document.getElementById("postDiv").style="display: block"
 			// change the text of the login button to logout
 			loginBtn.value = "LogOut"
+			document.getElementById("control").style="width: 80px"
 		}
 	}
 
@@ -45,6 +46,7 @@ window.onload = function() {
 		// change the text of button to login
 		loginBtn.value = "Login"
 		document.getElementById("postDiv").style="display: none"
+		document.getElementById("control").style="width: 180px"
 		
 	}
 
@@ -54,15 +56,15 @@ window.onload = function() {
 </head>
 <body data-gr-c-s-loaded="true">
 
-<h1>Rice Book</h1>
+<h1>Rice Book</h1> <br />
 
 <div id="control">
 	<input type="text" placeholder="username" id="username">
 	<input type="button" value="Login" id="login">
 </div>
 <div style="display: none" id="postDiv">
-	<input type="text" placeholder="share something" width="200">
-	<input type="button" value="Post">
+	<input type="text" placeholder="share something" width="200" rows="5" id="shareText">
+	<input type="button" value="Post" id="PostBtn">
 </div>
 
 <div>
@@ -159,26 +161,51 @@ Sed dictum malesuada ipsum, eget ornare enim molestie in. In id faucibus eros, a
 </body></html>
 
 <style>
+	body {
+		background-color: #f0f0f5;
+	}
 	h1{
 		text-align: center;
 		margin:auto;
 		color:#0066cc; 
 	}
-	#login {
+	#login, #PostBtn {
 		background-color: #0066cc;
 		border: none;
 		color: white;
-		width: 40%
-
+		width: 50px
 	}
+
+	#PostBtn {
+		height: 90%;
+		width: 5%;
+	}
+
 	#username {
-		width: 40%;
+		width: 100px;
 	}
 	#control {
 		text-align: center;
-		background-color: #e6f2ff;
-		width: 20%;
+		background-color: white;
+		width: 180px;
+		border: 1px dashed #0066cc;
 	}
+	#postDiv {
+		text-align: center;
+		width: 80%;
+		height: 30px;
+		background-color: white;
+		border: none;
+		border-left: 5px solid #0066cc;
+	}
+	#shareText {
+		border: none;
+		border-bottom: 1px solid #e0e0eb;
+		border-top: 1px solid #e0e0eb;
+		width: 90%;
+		height: 80%;
+	}
+
 	div {
 		margin: 0 auto;
 		background-color: #e6f2ff;
