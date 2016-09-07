@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<h1>Avoid Me Game</h1> <br />
+	<button id="clickMe">Click me</button>
+	<div id="gameOver">
+		<h1 id="winText">
+			Congratulations!<br />
+			You won!
+		</h1>
+	</div>
+	<script src="avoid.js"></script>
+</body>
+</html>
+<style>
+	h1 {
+		text-align: center;
+		margin: auto;
+		color: blue;
+	}
+	#winText {
+		color: #149ADE;
+	}
+	div {
+	    width: 300px;
+	    height: 80px;
+	    background-color: black;
+
+	    position: absolute;
+	    top:0;
+	    bottom: 0;
+	    left: 0;
+	    right: 0;
+
+	    margin: auto;
+	    text-align: center;
+	}
+	#gameOver{
+		display: none;
+		background-color: #16FC0E;
+		border: solid;
+		border-radius: 10px;
+		border-width: 5px;
+		border-color: red;
+	}
+	#clickMe {
+		position: absolute;
+	}
+</style>
