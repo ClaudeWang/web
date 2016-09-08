@@ -1,5 +1,4 @@
 const NUMCARDS = 6;
-const INTERVAL = 1000;
 var enabled = [];
 var cardsImage = [0, 1, 2, 3, 4, 5];
 var timeInterval = [];
@@ -39,7 +38,7 @@ function enableMe(which) {
 	button.onclick = function() {disableMe(which)};
 	button.innerHTML = "Stop";
 }
-//
+//change the image to the one indicated by the new index.
 function changeImage(i) {
 	if (enabled[i]) {
 		cardsImage[i] = (cardsImage[i] + 1) % NUMCARDS;
