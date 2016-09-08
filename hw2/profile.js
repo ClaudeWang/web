@@ -40,9 +40,11 @@ function submitChanges() {
 				}
 				// if not, add it to the alert message.
 				else{
+					var oldValue = document.getElementById("label-" + item).innerHTML;
 					document.getElementById("label-" + item).innerHTML = document.getElementById(item).value;
 					document.getElementById(item).value = "";
-					updated += ("\"" + item + "\"" + " ");
+					updated += ("\"" + item + "\"" + ": ");
+					updated += "Changed from " + oldValue + " to " + document.getElementById("label-" + item).innerHTML + "\n";
 				}
 			});
 			if (count == 0){
@@ -50,9 +52,9 @@ function submitChanges() {
 				return;
 			}
 			if (count == 1){
-				alert("Field " + updated + " has been successfully updated!");
+				alert("Field has been successfully updated!\n" + updated);
 			}else{
-				alert("Fields " + updated + "have been successfully updated!");
+				alert("Fields have been successfully updated!\n" + updated);
 			}
 		}
 	}
