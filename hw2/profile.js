@@ -1,11 +1,11 @@
 fields = ["displayName", "email", "phone", "zipcode", "password", "passwordConf"];
+//mapping each id to its field name. Used for alert messages.
 mapFields = {"displayName":"displayName", "email": "Email Adress",
 "phone": "Phone Number", "zipcode" : "Zip Code", 
 "password": "Password", "passwordConf": "Password Confirmation"};
 window.onload =  function() {
 	document.getElementById("submitChanges").onclick = submitChanges;
 }
-
 function submitChanges() {
 	var valid = true;
 	var isValidField;
@@ -38,7 +38,7 @@ function submitChanges() {
 					document.getElementById(item).value = "";
 					count--;
 				}
-				// if not, add it to the alert message.
+				//if not, add it to the alert message.
 				else{
 					var oldValue = document.getElementById("label-" + item).innerHTML;
 					document.getElementById("label-" + item).innerHTML = document.getElementById(item).value;
@@ -62,7 +62,6 @@ function submitChanges() {
 		alert("No changes have been made.");
 	}
 }
-
 function validateFields(index) {
 	//console.log(document.getElementById(fields[index]).checkValidity());
 	return document.getElementById(fields[index]).checkValidity();
