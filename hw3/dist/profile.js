@@ -3,6 +3,7 @@ fields = ["displayName", "email", "phone", "zipcode", "password", "passwordConf"
 mapFields = {"displayName":"displayName", "email": "Email Adress",
 "phone": "Phone Number", "zipcode" : "Zip Code", 
 "password": "Password", "passwordConf": "Password Confirmation"};
+update_text = document.getElementById("update-text");
 window.onload =  function() {
 	document.getElementById("submitChanges").onclick = submitChanges;
 }
@@ -25,7 +26,6 @@ function submitChanges() {
 			changedFields.push(item)
 		}
 	});
-
 	//if there is field that is not empty and the input fields are valid.
 	if (valid && count != 0) {
 		//must confirm that password and passowrd confirm to be the same.
@@ -33,7 +33,16 @@ function submitChanges() {
 			document.getElementById("update-text").innerHTML = ("Password and password confirmation must be the same.\n");
 			document.getElementById("update-text").style = "display:block; color:red";
 			return;
-		}else {
+		}
+		else if(document.getElementById("password").value != ""){
+			var firstChar = document.getElementById("password").value.charAt(0);
+			if (firstChar >= '0' && firstChar <= '9') {
+				document.getElementById("update-text").innerHTML = ("Password must not start with a digit.\n");
+				document.getElementById("update-text").style = "display:block; color:red";
+				return;
+			}
+		}
+		else {
 			var updated = "";
 			changedFields.forEach(function(item, index) {
 				//if identical, don't consider it as change.
@@ -54,9 +63,11 @@ function submitChanges() {
 				return;
 			}
 			if (count == 1){
+				//alert when there is only one field is updated.
 				document.getElementById("update-text").innerHTML = ("Field has been successfully updated!\n");
 				document.getElementById("update-text").style = "display:block; color:green";
 			}else{
+				//alert when multiple fields are updated.
 				document.getElementById("update-text").innerHTML = ("Fields have been successfully updated!\n");
 				document.getElementById("update-text").style = "display:block; color:green";
 			}

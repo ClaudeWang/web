@@ -4,8 +4,6 @@ window.onload = function(){
 	document.getElementById("register-form").method = "get";
 	document.getElementById("login-btn").onclick = login;
 }
-
-
 function validateFields() {
 	//Check if passwords match.
 	if (document.getElementById("password").value != document.getElementById("password_conf").value) {
@@ -36,7 +34,6 @@ function validateFields() {
 	document.getElementById("hidden_time").value = (new Date()).getTime();
 	return true;
 }
-
 function login() {
 	//check if the fields are of the correct format.
 	if (!document.getElementById("login_account").checkValidity()){
