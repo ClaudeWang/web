@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css">
+<script src="profile.js"></script>
+<html lang="en-US">
+<head>
+	<title>Profile Page</title>
+	<meta name="author" content="Ziyun Wang">
+</head>
+<body id="profile_body">
+	<h1 class="bg-primary" id="profile_title">RiceBook</h1>
+	<h2 class="text-primary">Profile Page</h2>
+	<div id="page_warning">
+		<p id="update-text"></p>
+	</div>
+	<div id="profile-pic-div">
+		<img id="profile-pic-profile" src="resources/panda.png" width="50%">
+	</div>
+	<div id="formDiv">
+				<div class="row">
+			<p class="text-primary">Display Name: </p> 
+			<div class="groupEntry" >
+				<label id="label-displayName">Ziyun Wang</label> 
+				<input type="text" name="displayName" id="displayName" placeholder="Your display name" />
+			</div>
+		</div><br />
+		<div class="row">
+			<p class="text-primary">Date of Birth: </p>
+			<div class="groupEntry" >
+				<label id="label-dob">08/09/1993</label> 
+				<input type="text" style="visibility:hidden">
+			</div>
+		</div><br />
+		<div class="row">
+			<div>
+				<p class="text-primary">Email Address: </p>
+				<div class="groupEntry">
+					<label id="label-email">zw21@rice.edu</label>
+					<input type="email" name="email_address" id="email" placeholder="Your email address" pattern=".+@.+\..+" />
+				</div>
+			</div>
+		</div><br />
+		<div class="row">
+			<div>
+				<p class="text-primary">Phone Number: </p> 
+				<div class="groupEntry">
+					<label id="label-phone">832-552-1837</label>
+					<input type="text" name="phone_number" id="phone" placeholder="xxx-xxx-xxxx" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" />
+				</div>
+			</div>
+		</div><br />
+		<div class="row">
+			<div>
+				<p class="text-primary">Zipcode: </p>
+				<div class="groupEntry">
+					<label id="label-zipcode">77005</label> 
+					<input type="text" name="zipcode" id="zipcode" placeholder="Your zip code" pattern="[0-9]{5}" />
+				</div>
+			</div>
+		</div><br />
+		<div class="row">
+			<div>
+				<p class="text-primary">Password: </p>
+				<div class="groupEntry">
+					<label id="label-password">12345</label>
+		 			<input type="password" name="password" id="password" placeholder="Your password" />
+		 		</div>
+		 	</div>
+		 </div><br /> 
+		<div class="row">
+			<div>
+				<p class="text-primary">Password Confirmation: </p>
+				<div class="groupEntry">
+					<label id="label-passwordConf">12345</label>
+					<input type="password" name="password" id="passwordConf" placeholder="Your password" />
+				</div>
+			</div>
+		</div><br />
+		<div class="row" id="submit-changes-container">
+			<button class="btn btn-primary" id="submitChanges">change</button>
+		</div>
+	</div>
+	<div id="backLink"><a href="main.html">Back to Main Page</a></div> 
+</body>
+</html>
