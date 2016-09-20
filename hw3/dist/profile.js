@@ -34,15 +34,15 @@ function submitChanges() {
 			document.getElementById("update-text").style = "display:block; color:red";
 			return;
 		}
-		else if(document.getElementById("password").value != ""){
-			var firstChar = document.getElementById("password").value.charAt(0);
-			if (firstChar >= '0' && firstChar <= '9') {
-				document.getElementById("update-text").innerHTML = ("Password must not start with a digit.\n");
-				document.getElementById("update-text").style = "display:block; color:red";
-				return;
-			}
-		}
 		else {
+			if(document.getElementById("password").value != ""){
+				var firstChar = document.getElementById("password").value.charAt(0);
+				if (firstChar >= '0' && firstChar <= '9') {
+					document.getElementById("update-text").innerHTML = ("Password must not start with a digit.\n");
+					document.getElementById("update-text").style = "display:block; color:red";
+					return;
+				}
+			}
 			var updated = "";
 			changedFields.forEach(function(item, index) {
 				//if identical, don't consider it as change.
