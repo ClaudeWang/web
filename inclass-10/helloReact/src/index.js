@@ -22,7 +22,10 @@ class ToDoItem extends React.Component {
     }
 
     toggleDone() {
-        this.setState({done: true})
+        if (this.state.done == false)
+            this.setState({done: true})
+        else
+            this.setState({done: false})
     }
     render() { return (
         <li>
