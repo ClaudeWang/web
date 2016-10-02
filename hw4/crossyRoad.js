@@ -15,6 +15,9 @@ window.onload = function() {
 			case 39: 
 				app.moveMe("r");
 				break;
+			case 32:
+				app.restartGame();
+				break;
 		}
 	}
 }
@@ -33,7 +36,6 @@ class Road {
 		this.generateObstaclesAndCoins(subEleWidth, numLateral);
 		this.spawnInterval = getRandomInt(15, 20);
 		this.subEleWidth = subEleWidth;
-		//this.speed = 0.1;
 		if (type == "river") {
 			this.speed = 0.1 * direction;
 		}else {
@@ -54,7 +56,7 @@ class Road {
 				this.obstacleCells[i] = 1;
 				continue;
 			}
-			if (Math.random() < 0.001) {
+			if (Math.random() < 0.1) {
 				coins.push(new Coin(i, obstacle_width));
 			}
 		}
@@ -189,7 +191,7 @@ class Log {
 
 
 var createApp = function(canvas) {
-	var c = canvas.getContext("2d");
+	
 	const HEIGHT = canvas.height;
 	const WIDTH = canvas.width;
 	const NUMROADS = 10;
@@ -200,6 +202,8 @@ var createApp = function(canvas) {
 	
 	const MEBORDER = 1;
 	const SPAWNROAD = 1;
+	
+	var c = canvas.getContext("2d");
 	var treeFlag = 1;
 	var me = new Me(NUMLATERALPOS / 2);
 	var c = canvas.getContext("2d")
@@ -210,11 +214,32 @@ var createApp = function(canvas) {
 	var coin = 0;
 	var gameOver = false;
 	var numMoves = 0;
+	var highscore = 0;
+	var highDistance = 0;
 	//initialization.
 	var roads = generateRoads(NUMROADS);
-	curRoad = roads[0];
+	var curRoad = roads[0];
+
+	function reinit() {
+		c = canvas.getContext("2d");
+		treeFlag = 1;
+		me = new Me(NUMLATERALPOS / 2);
+		c = canvas.getContext("2d")
+		spawnCounter = 0;
+		log_direction = 1;
+		currentlog = null;
+		distance = 0;
+		coin = 0;
+		gameOver = false;
+		numMoves = 0;
+		//initialization.
+		roads = generateRoads(NUMROADS);
+		curRoad = roads[0];
+	}
 	//testing intialization.
 	function refresh() {
+		if (gameOver)
+			return
 		//clear the canvas.
 		var c = canvas.getContext("2d");
 		c.clearRect(0, 0, canvas.width, canvas.height);
@@ -238,6 +263,9 @@ var createApp = function(canvas) {
 		c.fillText("Score: " + coin, WIDTH - 180, 30)
 		c.fillText("Distance: " + distance, WIDTH - 180, 60)
 		c.fillText("Moves: " + numMoves, WIDTH - 180, 90)
+
+		c.fillStyle = "red";
+		c.fillText("High Score: " + highscore, 30, 30)
 	}
 	function generateRoad() {
 		var rand = Math.random();
@@ -400,7 +428,7 @@ var createApp = function(canvas) {
 				car_collision = true;
 		})
 		if (car_collision)
-			console.log("GameOver:collide");
+			terminateGame()
 		//check if in water.
 
 	}
@@ -415,11 +443,11 @@ var createApp = function(canvas) {
 			}
 		}); 
 		if (inWater) {
-			console.log("GameOver: in water")
+			terminateGame("You have fallen into the river.");
 		}
 		//check if me has reached either end of the bound.
 		if (me.pos < 0 || me.pos >= NUMLATERALPOS)
-			console.log("GameOver: reached the bounds.")
+			terminateGame();
 	}
 
 	function checkCoins() {
@@ -442,10 +470,33 @@ var createApp = function(canvas) {
 			return true;
 		return false;
 	}
+
+	function terminateGame() {
+		if (highscore < coin){
+			highscore = coin;
+			console.log("High score updated to " + highscore);
+		}
+		if (highDistance < distance){
+			highDistance = distance;
+			console.log("High distance updated to " + highDistance);
+		}	
+		gameOver = true;
+		c.fillStyle = "black";
+		c.fillRect(0, 0, WIDTH, HEIGHT);
+		c.fillStyle = "white";
+		c.fillText("Game Over", WIDTH / 2 - "Game Over".length / 2 * 15, HEIGHT / 2);
+		c.font="15px Georgia";
+		c.fillText("Press space to restart the game.", WIDTH / 2 - "Game Over".length / 2 * 15, HEIGHT / 2 + 30)
+	}
+
+	function restartGame() {
+		reinit();
+	}
 	return {
 		refresh: refresh,
 		moveMe: moveMe,
-		spawnControl: spawnControl
+		spawnControl: spawnControl,
+		restartGame: restartGame
 	}
 }
 
