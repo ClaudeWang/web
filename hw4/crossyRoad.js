@@ -29,6 +29,7 @@ class Road {
 		this.cars = [];
 		this.logs = [];
 		this.coins = [];
+		this.obstacleCells = [];
 		this.generateObstaclesAndCoins(subEleWidth, numLateral);
 		this.spawnInterval = getRandomInt(15, 20);
 		this.subEleWidth = subEleWidth;
@@ -47,11 +48,13 @@ class Road {
 			return;
 		var obstacles = [];
 		for (var i = 0; i < numLateral; i++) {
-			if (Math.random() < 0.3) {
+			this.obstacleCells.push(0);
+			if (Math.random() < 0.6 && i % 2 == 0) {
 				obstacles.push(new Bush(i, obstacle_width));
+				this.obstacleCells[i] = 1;
 				continue;
 			}
-			if (Math.random() < 0.1) {
+			if (Math.random() < 0.001) {
 				coins.push(new Coin(i, obstacle_width));
 			}
 		}
@@ -62,7 +65,7 @@ class Road {
 	addSprite(width, numLateral) {
 		if (this.type == "road"){
 			if (this.speed < 0)
-				this.cars.push(new Car(this.speed, 0, numLateral, "resources/car_2_reverse.png", width));
+				this.cars.push(new Car(this.speed, 0, numLateral, "resources/car_3_reverse.png", width));
 			else
 				this.cars.push(new Car(this.speed, 0, -1, "resources/car_2.png", width));
 		}
@@ -205,12 +208,12 @@ var createApp = function(canvas) {
 	var currentlog = null;
 	var distance = 0;
 	var coin = 0;
+	var gameOver = false;
+	var numMoves = 0;
 	//initialization.
 	var roads = generateRoads(NUMROADS);
 	curRoad = roads[0];
-	//refresh(roads, canvas);
 	//testing intialization.
-	console.log(roads)
 	function refresh() {
 		//clear the canvas.
 		var c = canvas.getContext("2d");
@@ -220,16 +223,21 @@ var createApp = function(canvas) {
 			displayRoad(index, item);
 		})
 		displayMe();
-		if (roads[SPAWNROAD].type == "road")
+		if (roads[SPAWNROAD].type == "road"){
 			checkRoadValidity();
+		}
 		else if(roads[SPAWNROAD].type == "river") {
 			checkRiverValidity();
+		}
+		else {
+			checkCoins();
 		}
 		//score
 		c.fillStyle = "white";
 		c.font="30px Georgia";
 		c.fillText("Score: " + coin, WIDTH - 180, 30)
 		c.fillText("Distance: " + distance, WIDTH - 180, 60)
+		c.fillText("Moves: " + numMoves, WIDTH - 180, 90)
 	}
 	function generateRoad() {
 		var rand = Math.random();
@@ -258,6 +266,29 @@ var createApp = function(canvas) {
 		roads[SPAWNROAD] = new Road("safe", "green", LATERALOFFSET, NUMLATERALPOS);
 		var obstacles = roads[SPAWNROAD].obstacles.filter((e) => e.pos != me.pos);
 		roads[SPAWNROAD].obstacles = obstacles;
+
+		// //go through the roads to make sure there is always a valid path.
+		// roads.forEach(function(item, index) {
+		// 	//exclude the first row, both roads must be safe.
+		// 	if (index != 0 && item.type == "safe" && roads[index - 1].type == "safe") {
+		// 		roads[index].obstacleCells.forEach(function(item, i) {
+		// 			if (i == 0 && roads[index].obstacleCells[0] == 1 && roads[index - 1].obstacleCells[0] == 0) {
+		// 				//the obstacle must be cleared.
+		// 				roads[index].obstacles = roads[index].obstacles.filter((obs) => obs.pos != 0);
+		// 				roads[index].obstacleCells[0] = 0;
+		// 			}
+		// 			else if (i == NUMLATERALPOS-1 && roads[index].obstacleCells[NUMLATERALPOS-1] == 1 && roads[index-1].obstacleCells[NUMLATERALPOS - 1] == 0) {
+		// 				//the obstacle must be cleared.
+		// 				roads[index].obstacles = roads[index].obstacles.filter((obs) => obs.pos != NUMLATERALPOS - 1);
+		// 				roads[index].obstacleCells[NUMLATERALPOS - 1] = 0;
+		// 			}
+		// 			else if (roads[index].obstacleCells[i] == 1 && roads[index - 1].obstacleCells[i] == 1) {
+		// 				roads[index].obstacles = roads[index].obstacles.filter((obs) => obs.pos != i);
+		// 				roads[index].obstacleCells[i] = 0;
+		// 			}
+		// 		});
+		// 	}
+		// })
 		return roads;
 	}
 
@@ -283,8 +314,10 @@ var createApp = function(canvas) {
 					collision = true;
 				}	
 			})
-			if (!collision)
+			if (!collision){
 				me.pos--;
+				numMoves++;
+			}
 		} else if (direction == "r") {
 			if (me.pos == NUMLATERALPOS - 1) {
 				return;
@@ -294,8 +327,10 @@ var createApp = function(canvas) {
 					collision = true;
 				}	
 			})
-			if (!collision)
+			if (!collision) {
 				me.pos++;
+				numMoves++;
+			}
 		} else{
 			//generate a new row and swap
 			moveForward();
@@ -328,11 +363,31 @@ var createApp = function(canvas) {
 		var temp = roads.slice(1);
 		var newRoad = generateRoad();
 		if (temp[temp.length - 1].type == "river" && newRoad.type != "river") {
-			console.log("in")
 			newRoad = new Road("safe", "green", LATERALOFFSET, NUMLATERALPOS, 1);
 		}
+		//create a valid path.
+		var oldRoad = temp[temp.length - 1];
+		// if (newRoad.type == "safe" && oldRoad.type == "safe"){
+		// 	newRoad.obstacleCells.forEach(function(item, i) {
+		// 		if (i == 0 && newRoad.obstacleCells[0] == 1 && oldRoad.obstacleCells[1] == 0) {
+		// 			//the obstacle must be cleared.
+		// 			newRoad.obstacles = newRoad.obstacles.filter((obs) => obs.pos != 0);
+		// 			newRoad.obstacleCells[0] = 0;
+		// 		}
+		// 		else if (i == NUMLATERALPOS-1 && newRoad.obstacleCells[NUMLATERALPOS-1] == 1 && old.obstacleCells[NUMLATERALPOS - 1] == 0) {
+		// 			//the obstacle must be cleared.
+		// 			newRoad.obstacles = newRoad.obstacles.filter((obs) => obs.pos != NUMLATERALPOS - 1);
+		// 			newRoad.obstacleCells[NUMLATERALPOS - 1] = 0;
+		// 		}
+		// 		else if (newRoad.obstacleCells[i] == 1 && oldRoad.obstacleCells[i] == 1) {
+		// 			newRoad.obstacles = newRoad.obstacles.filter((obs) => obs.pos != i);
+		// 			newRoad.obstacleCells[i] = 0;
+		// 		}
+		// 	});
+		// }	
 		temp.push(newRoad);
 		roads = temp;
+		numMoves++;
 	}
 
 	function checkRoadValidity() {
@@ -345,11 +400,10 @@ var createApp = function(canvas) {
 				car_collision = true;
 		})
 		if (car_collision)
-			console.log("collide");
+			console.log("GameOver:collide");
 		//check if in water.
 
 	}
-
 	function checkRiverValidity() {
 		//check if me is in water.
 		var inWater = true;
@@ -366,6 +420,15 @@ var createApp = function(canvas) {
 		//check if me has reached either end of the bound.
 		if (me.pos < 0 || me.pos >= NUMLATERALPOS)
 			console.log("GameOver: reached the bounds.")
+	}
+
+	function checkCoins() {
+		roads[SPAWNROAD].coins.forEach(function(item, index) {
+			if (roundOffsetCollide(me, item)) {
+				coin ++;
+				roads[SPAWNROAD].coins.splice(index, 1);
+			}
+		});
 	}
 
 	function collide(item1, item2) {
