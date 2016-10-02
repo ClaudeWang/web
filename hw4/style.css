@@ -1,0 +1,9 @@
+#gameDiv {
+	text-align: center;
+}
+#canvas {
+	margin: auto;
+	background-color: white;
+	width: 600px;
+	height: 600px;
+}
