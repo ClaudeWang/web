@@ -334,6 +334,10 @@ var createApp = function(canvas) {
 	function moveMe(direction) {
 		var collision = false;
 		if (direction === "l") {
+			if (currentlog != null) {
+				terminateGame();
+				return;
+			}
 			if (me.pos == 0)
 				return;
 			//check if there is an obstacle on the left.
@@ -347,6 +351,10 @@ var createApp = function(canvas) {
 				numMoves++;
 			}
 		} else if (direction == "r") {
+			if (currentlog != null) {
+				terminateGame();
+				return;
+			}
 			if (me.pos == NUMLATERALPOS - 1) {
 				return;
 			}
