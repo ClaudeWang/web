@@ -343,7 +343,8 @@ var createApp = function(canvas) {
 	}
 
 	function restartGame() {
-		reinit();
+		if (gameOver)
+			reinit();
 	}
 	return {
 		refresh: refresh,
