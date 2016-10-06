@@ -1,9 +1,34 @@
+button {
+	color: red;
+	background-color: white;
+	border: solid;
+	border-color: black;
+	border-width: 2px;
+	width: 70px;
+	height: 50px;
+	font-family: 30px;
+	word-spacing: 20px;
+	margin: 5px;
+}
+
+body {
+	text-align: center;
+}
 #gameDiv {
 	text-align: center;
+}
+h1, h2, p {
+	font-family: "Serif", Arial;
+}
+p {
+	text-align: left;
+	width: 600px;
+	margin: auto;
 }
 #canvas {
 	margin: auto;
 	background-color: white;
 	width: 600px;
 	height: 600px;
+	border: solid;
 }

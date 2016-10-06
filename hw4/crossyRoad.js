@@ -1,195 +1,40 @@
-var curRoad = null;
 window.onload = function() {
 	canvas = document.getElementById("canvas");
 	var app = createApp(canvas);
+	//set app refreshing rate.
+
 	setInterval(app.refresh, 50);
 	setInterval(app.spawnControl, 100);
+	//bind key to control.
 	document.onkeydown = function(e) {
 		switch(e.keyCode) {
 			case 37:
+				e.preventDefault();
 				app.moveMe("l");
 				break;
 			case 38:
+				e.preventDefault();
 				app.moveMe("f");
 				break;
-			case 39: 
+			case 39:
+				e.preventDefault(); 
 				app.moveMe("r");
 				break;
 			case 32:
+				e.preventDefault();
 				app.restartGame();
+				break;
+			case 40:
+				e.preventDefault();
 				break;
 		}
 	}
+	//simlutate keyboard control on the user interface.
+	document.getElementById("up").onclick = ()=>app.moveMe("f")
+	document.getElementById("left").onclick = ()=>app.moveMe("l")
+	document.getElementById("right").onclick = ()=>app.moveMe("r")
+	document.getElementById("start").onclick = ()=>app.restartGame()
 }
-
-class Road {
-	constructor(type, color, subEleWidth, numLateral, direction) {
-		this.image = new Image();
-		this.image.src = "resources/road.jpg";
-		this.type = type;
-		this.color = color;
-		this.obstacles = [];
-		this.cars = [];
-		this.logs = [];
-		this.coins = [];
-		this.obstacleCells = [];
-		this.generateObstaclesAndCoins(subEleWidth, numLateral);
-		this.spawnInterval = getRandomInt(15, 20);
-		this.subEleWidth = subEleWidth;
-		if (type == "river") {
-			this.speed = 0.1 * direction;
-		}else {
-			this.speed = (Math.random() * 0.1 + 0.1) * direction;
-		}
-	}
-	generateObstaclesAndCoins(obstacle_width, numLateral) {
-		//randomly generate obstacles and coins.
-		var obstacles = [];
-		var coins = [];
-		if (this.type != "safe")
-			return;
-		var obstacles = [];
-		for (var i = 0; i < numLateral; i++) {
-			this.obstacleCells.push(0);
-			if (Math.random() < 0.6 && i % 2 == 0) {
-				obstacles.push(new Bush(i, obstacle_width));
-				this.obstacleCells[i] = 1;
-				continue;
-			}
-			if (Math.random() < 0.1) {
-				coins.push(new Coin(i, obstacle_width));
-			}
-		}
-		this.obstacles = obstacles;
-		this.coins = coins;
-	}
-
-	addSprite(width, numLateral) {
-		if (this.type == "road"){
-			if (this.speed < 0)
-				this.cars.push(new Car(this.speed, 0, numLateral, "resources/car_3_reverse.png", width));
-			else
-				this.cars.push(new Car(this.speed, 0, -1, "resources/car_2.png", width));
-		}
-		else if (this.type == "river") {
-			if (this.speed < 0)
-				this.logs.push(new Log(this.speed, numLateral, width))
-			else
-				this.logs.push(new Log(this.speed, -1, width))
-		}
-	}
-
-	display(startX, startY, width, height, context) {
-		if (this.type == "road") {
-			context.drawImage(this.image, startX - 1, startY, width + 4, height);
-		} else {
-			context.fillStyle=this.color;
-			context.fillRect(startX, startY, width, height);
-		}
-		//recursively call display function on cars/obstacles.
-		this.cars.forEach(function(item){
-			item.display(startY, height, context);
-		})
-
-		this.obstacles.forEach(function(item){
-			item.display(startY, height, context);
-		})
-		this.coins.forEach(function(item){
-			item.display(startY, height, context);
-		})
-		this.logs.forEach(function(item){
-			item.display(startY, height, context);
-		})
-	}
-	spawn(spawnCounter, numLateral) {
-		if (spawnCounter % this.spawnInterval == 0)
-			this.addSprite(this.subEleWidth, numLateral);
-	}
-}
-
-class Car {
-	constructor(speed, acceleration, pos, imagePath, width) {
-		this.width = width;
-		this.image = new Image();
-		this.image.src = imagePath;
-		this.speed = speed;
-		this.acceleration = acceleration;
-		this.pos = pos;
-	}
-	update() {
-		this.pos += this.speed;
-		this.speed += this.acceleration;
-	}
-	display(startY, height, context) {
-		this.update();
-		context.drawImage(this.image, this.pos * this.width - 3, startY + 10, this.width + 6, height - 20);
-	}
-}
-
-class Bush {
-	constructor(pos, width) {
-		this.image = new Image();
-		this.image.src = "resources/bush.png";
-		this.width = width;
-		this.pos = pos;
-	}
-	display(startY, height, context) {
-		context.drawImage(this.image, this.pos * this.width, startY, this.width, height);
-	}
-}
-class Coin {
-	constructor(pos, width) {
-		this.image = new Image();
-		this.image.src = "resources/coin.png";
-		this.width = width;
-		this.pos = pos;
-	}
-	display(startY, height, context) {
-		context.drawImage(this.image, this.pos * this.width, startY, this.width, height);
-	}
-}
-
-class Me {
-	constructor(position) {
-		this.meImage = new Image();
-		this.meImage.src = "resources/me.png";
-		this.pos = position;
-	}
-	getImage() {
-		return this.meImage;
-	}
-	reposition() {
-		this.pos = Math.round(this.pos);
-	}
-}
-
-class Log {
-	constructor(speed, pos, width) {
-		this.width = width;
-		this.speed = speed;
-		this.pos = pos;
-		this.carry = null;
-		this.image = new Image();
-		this.image.src = "resources/log.png";
-	}
-	update() {
-		this.pos += this.speed;
-		if (this.carry != null)
-			this.carry.pos = this.pos;
-	}
-	display(startY, height, context) {
-		this.update();
-		context.drawImage(this.image, this.pos * this.width, startY + 10, this.width , height - 20);
-	}
-	carryMe(me) {
-		this.carry = me;
-	}
-	releaseMe() {
-		this.carry = null;
-	}
-}
-
-
 var createApp = function(canvas) {
 	
 	const HEIGHT = canvas.height;
@@ -202,11 +47,10 @@ var createApp = function(canvas) {
 	
 	const MEBORDER = 1;
 	const SPAWNROAD = 1;
-	
+
 	var c = canvas.getContext("2d");
 	var treeFlag = 1;
 	var me = new Me(NUMLATERALPOS / 2);
-	var c = canvas.getContext("2d")
 	var spawnCounter = 0;
 	var log_direction = 1;
 	var currentlog = null;
@@ -214,17 +58,19 @@ var createApp = function(canvas) {
 	var coin = 0;
 	var gameOver = false;
 	var numMoves = 0;
-	var highscore = 0;
-	var highDistance = 0;
+
 	//initialization.
 	var roads = generateRoads(NUMROADS);
 	var curRoad = roads[0];
+	var controlDir = 1;
 
+
+	var highscore = 0;
+	var highDistance = 0;
 	function reinit() {
 		c = canvas.getContext("2d");
 		treeFlag = 1;
 		me = new Me(NUMLATERALPOS / 2);
-		c = canvas.getContext("2d")
 		spawnCounter = 0;
 		log_direction = 1;
 		currentlog = null;
@@ -235,6 +81,7 @@ var createApp = function(canvas) {
 		//initialization.
 		roads = generateRoads(NUMROADS);
 		curRoad = roads[0];
+		controlDir = 1;
 	}
 	//testing intialization.
 	function refresh() {
@@ -256,15 +103,18 @@ var createApp = function(canvas) {
 		}
 		else {
 			checkCoins();
+			checkBombs();
 		}
-		//score
+		if (gameOver)
+			return
+		//display score on the screen.
 		c.fillStyle = "white";
-		c.font="30px Georgia";
+		c.font = "bold 30px sans-serif"
 		c.fillText("Score: " + coin, WIDTH - 180, 30)
 		c.fillText("Distance: " + distance, WIDTH - 180, 60)
 		c.fillText("Moves: " + numMoves, WIDTH - 180, 90)
 
-		c.fillStyle = "red";
+		c.fillStyle = "white";
 		c.fillText("High Score: " + highscore, 30, 30)
 	}
 	function generateRoad() {
@@ -283,40 +133,20 @@ var createApp = function(canvas) {
 	}
 
 	function generateRoads(numRoads) {
-		var roads = []
-		//make sure the obstacles don't take the spwan position of me.
-		for (var i = 0; i < numRoads + 20; i++) {
+		var roads = Array(numRoads + 20).fill()
+		// make sure the obstacles don't take the spwan position of me.
+		roads.forEach(function(item, i) {
 			roads[i] = generateRoad();
 			if (i != 0 && roads[i - 1].type == "river" && roads[i].type != "river") {
 				roads[i] = new Road("safe", "green", LATERALOFFSET, NUMLATERALPOS, 1);
 			}
-		}
+		})
+		//take out the sprite on Me postion.
 		roads[SPAWNROAD] = new Road("safe", "green", LATERALOFFSET, NUMLATERALPOS);
 		var obstacles = roads[SPAWNROAD].obstacles.filter((e) => e.pos != me.pos);
+		var bombs = roads[SPAWNROAD].bombs.filter((e) => e.pos != me.pos);
 		roads[SPAWNROAD].obstacles = obstacles;
-
-		// //go through the roads to make sure there is always a valid path.
-		// roads.forEach(function(item, index) {
-		// 	//exclude the first row, both roads must be safe.
-		// 	if (index != 0 && item.type == "safe" && roads[index - 1].type == "safe") {
-		// 		roads[index].obstacleCells.forEach(function(item, i) {
-		// 			if (i == 0 && roads[index].obstacleCells[0] == 1 && roads[index - 1].obstacleCells[0] == 0) {
-		// 				//the obstacle must be cleared.
-		// 				roads[index].obstacles = roads[index].obstacles.filter((obs) => obs.pos != 0);
-		// 				roads[index].obstacleCells[0] = 0;
-		// 			}
-		// 			else if (i == NUMLATERALPOS-1 && roads[index].obstacleCells[NUMLATERALPOS-1] == 1 && roads[index-1].obstacleCells[NUMLATERALPOS - 1] == 0) {
-		// 				//the obstacle must be cleared.
-		// 				roads[index].obstacles = roads[index].obstacles.filter((obs) => obs.pos != NUMLATERALPOS - 1);
-		// 				roads[index].obstacleCells[NUMLATERALPOS - 1] = 0;
-		// 			}
-		// 			else if (roads[index].obstacleCells[i] == 1 && roads[index - 1].obstacleCells[i] == 1) {
-		// 				roads[index].obstacles = roads[index].obstacles.filter((obs) => obs.pos != i);
-		// 				roads[index].obstacleCells[i] = 0;
-		// 			}
-		// 		});
-		// 	}
-		// })
+		roads[SPAWNROAD].bombs = bombs;
 		return roads;
 	}
 
@@ -338,16 +168,17 @@ var createApp = function(canvas) {
 				terminateGame();
 				return;
 			}
-			if (me.pos == 0)
+			//check if at boudary.
+			if ((me.pos == 0 && controlDir == 1) || (me.pos == NUMLATERALPOS - 1 && controlDir == -1))
 				return;
 			//check if there is an obstacle on the left.
 			roads[SPAWNROAD].obstacles.forEach(function(item) {
-				if (item.pos == me.pos - 1) {
+				if (item.pos == me.pos - controlDir) {
 					collision = true;
 				}	
 			})
 			if (!collision){
-				me.pos--;
+				me.pos -= controlDir;
 				numMoves++;
 			}
 		} else if (direction == "r") {
@@ -355,16 +186,18 @@ var createApp = function(canvas) {
 				terminateGame();
 				return;
 			}
-			if (me.pos == NUMLATERALPOS - 1) {
+			//check if at boudary.
+			if ((me.pos == NUMLATERALPOS - 1 && controlDir == 1) || (me.pos == 0 && controlDir == -1)) {
 				return;
 			}
+			//check obstacles
 			roads[SPAWNROAD].obstacles.forEach(function(item) {
-				if (item.pos == me.pos + 1) {
+				if (item.pos == me.pos + controlDir) {
 					collision = true;
 				}	
 			})
 			if (!collision) {
-				me.pos++;
+				me.pos += controlDir;
 				numMoves++;
 			}
 		} else{
@@ -374,18 +207,20 @@ var createApp = function(canvas) {
 	}
 
 	function spawnControl() {
+		//control the spawn of cars and logs.
 		spawnCounter ++;
 		roads.forEach((road) => road.spawn(spawnCounter, NUMLATERALPOS));
 	}
 
 	function moveForward() {
-		//only move forward if there is no obstacle ahead.
+		// check if should release me from the moving log.
 		if (currentlog != null) {
 			currentlog.releaseMe();
 			currentlog = null;
 		}
 		var collision = false;
 		var obstacles = roads[SPAWNROAD + 1].obstacles;
+		//only move forward if there is no obstacle ahead.
 		obstacles.forEach(function(item) {
 			if (roundOffsetCollide(item, me)){
 				collision = true;
@@ -396,31 +231,14 @@ var createApp = function(canvas) {
 		//repposition me.
 		distance ++;
 		me.reposition();
+		//adding a new road.
 		var temp = roads.slice(1);
 		var newRoad = generateRoad();
 		if (temp[temp.length - 1].type == "river" && newRoad.type != "river") {
 			newRoad = new Road("safe", "green", LATERALOFFSET, NUMLATERALPOS, 1);
 		}
 		//create a valid path.
-		var oldRoad = temp[temp.length - 1];
-		// if (newRoad.type == "safe" && oldRoad.type == "safe"){
-		// 	newRoad.obstacleCells.forEach(function(item, i) {
-		// 		if (i == 0 && newRoad.obstacleCells[0] == 1 && oldRoad.obstacleCells[1] == 0) {
-		// 			//the obstacle must be cleared.
-		// 			newRoad.obstacles = newRoad.obstacles.filter((obs) => obs.pos != 0);
-		// 			newRoad.obstacleCells[0] = 0;
-		// 		}
-		// 		else if (i == NUMLATERALPOS-1 && newRoad.obstacleCells[NUMLATERALPOS-1] == 1 && old.obstacleCells[NUMLATERALPOS - 1] == 0) {
-		// 			//the obstacle must be cleared.
-		// 			newRoad.obstacles = newRoad.obstacles.filter((obs) => obs.pos != NUMLATERALPOS - 1);
-		// 			newRoad.obstacleCells[NUMLATERALPOS - 1] = 0;
-		// 		}
-		// 		else if (newRoad.obstacleCells[i] == 1 && oldRoad.obstacleCells[i] == 1) {
-		// 			newRoad.obstacles = newRoad.obstacles.filter((obs) => obs.pos != i);
-		// 			newRoad.obstacleCells[i] = 0;
-		// 		}
-		// 	});
-		// }	
+		var oldRoad = temp[temp.length - 1];	
 		temp.push(newRoad);
 		roads = temp;
 		numMoves++;
@@ -449,7 +267,8 @@ var createApp = function(canvas) {
 				currentlog = item;
 				item.carryMe(me);
 			}
-		}); 
+		});
+		// terminate the ganem if the player falls into water. 
 		if (inWater) {
 			terminateGame("You have fallen into the river.");
 		}
@@ -459,10 +278,25 @@ var createApp = function(canvas) {
 	}
 
 	function checkCoins() {
+		//check the coins on the cureent road.
 		roads[SPAWNROAD].coins.forEach(function(item, index) {
 			if (roundOffsetCollide(me, item)) {
+				//update the score accordingly and reverse back the control.
 				coin ++;
+				controlDir = 1;
 				roads[SPAWNROAD].coins.splice(index, 1);
+			}
+		});
+	}
+
+	function checkBombs() {
+		//check if the play hits any bomb.
+		roads[SPAWNROAD].bombs.forEach(function(item, index) {
+			if (roundOffsetCollide(me, item)) {
+				//reverse the control.
+				controlDir = -1;
+				coin--;
+				roads[SPAWNROAD].bombs.splice(index, 1);
 			}
 		});
 	}
@@ -474,27 +308,38 @@ var createApp = function(canvas) {
 	}
 
 	function roundOffsetCollide(item1, item2) {
+		//helper function for checking the position equality.
 		if (Math.round(item1.pos) == Math.round(item2.pos))
 			return true;
 		return false;
 	}
 
 	function terminateGame() {
+		c.clearRect(0, 0, canvas.width, canvas.height);
 		if (highscore < coin){
 			highscore = coin;
-			console.log("High score updated to " + highscore);
 		}
 		if (highDistance < distance){
 			highDistance = distance;
-			console.log("High distance updated to " + highDistance);
-		}	
+		}
+		c.font = "bold 30px sans-serif"	
 		gameOver = true;
-		c.fillStyle = "black";
-		c.fillRect(0, 0, WIDTH, HEIGHT);
 		c.fillStyle = "white";
-		c.fillText("Game Over", WIDTH / 2 - "Game Over".length / 2 * 15, HEIGHT / 2);
-		c.font="15px Georgia";
-		c.fillText("Press space to restart the game.", WIDTH / 2 - "Game Over".length / 2 * 15, HEIGHT / 2 + 30)
+		c.fillRect(0, 0, WIDTH, HEIGHT);
+		c.fillStyle = "red";
+		c.fillText("GAME OVER", 300, HEIGHT / 2);
+		c.font = "bold 15px sans-serif";
+		c.fillText("Press space to restart the game.",290, HEIGHT / 2 + 30)
+
+		//print score
+		c.fillStyle = "red";
+		c.font = "bold 30px sans-serif"
+		c.fillText("Score: " + coin, WIDTH - 180, 30)
+		c.fillText("Distance: " + distance, WIDTH - 180, 60)
+		c.fillText("Moves: " + numMoves, WIDTH - 180, 90)
+
+		c.fillStyle = "red";
+		c.fillText("High Score: " + highscore, 30, 30)
 	}
 
 	function restartGame() {
