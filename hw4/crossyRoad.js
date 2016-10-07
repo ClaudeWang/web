@@ -122,28 +122,33 @@ var createApp = function(canvas) {
 		var direction = 1;
 		if (rand < 0.2){
 			log_direction *= -1;
-			return new Road("river", "blue", LATERALOFFSET, NUMLATERALPOS, log_direction);
+			return new Road("river", "blue", LATERALOFFSET, 
+				NUMLATERALPOS, log_direction);
 		}
 		else if (rand < 0.5){
 			log_direction *= -1;
-			return new Road("road", "grey", LATERALOFFSET, NUMLATERALPOS, log_direction);
+			return new Road("road", "grey", LATERALOFFSET, 
+				NUMLATERALPOS, log_direction);
 		}
 		else
-			return new Road("safe", "green", LATERALOFFSET, NUMLATERALPOS, 1);
+			return new Road("safe", "green", LATERALOFFSET, 
+				NUMLATERALPOS, 1);
 	}
 
 	function generateRoads(numRoads) {
-		var roads = Array(numRoads + 20).fill()
+		var roads = Array(numRoads + 20).fill();
+		var obstacles = [];
 		// make sure the obstacles don't take the spwan position of me.
 		roads.forEach(function(item, i) {
 			roads[i] = generateRoad();
-			if (i != 0 && roads[i - 1].type == "river" && roads[i].type != "river") {
-				roads[i] = new Road("safe", "green", LATERALOFFSET, NUMLATERALPOS, 1);
+			if (i != 0 && roads[i - 1].type == "river" 
+				&& roads[i].type != "river") {
+				roads[i]=new Road("safe","green",LATERALOFFSET,NUMLATERALPOS,1);
 			}
 		})
 		//take out the sprite on Me postion.
-		roads[SPAWNROAD] = new Road("safe", "green", LATERALOFFSET, NUMLATERALPOS);
-		var obstacles = roads[SPAWNROAD].obstacles.filter((e) => e.pos != me.pos);
+		roads[SPAWNROAD] = new Road("safe","green",LATERALOFFSET,NUMLATERALPOS);
+		obstacles = roads[SPAWNROAD].obstacles.filter((e) => e.pos != me.pos);
 		var bombs = roads[SPAWNROAD].bombs.filter((e) => e.pos != me.pos);
 		roads[SPAWNROAD].obstacles = obstacles;
 		roads[SPAWNROAD].bombs = bombs;
@@ -151,7 +156,7 @@ var createApp = function(canvas) {
 	}
 
 	function displayRoad(index, road) {
-		road.display(0, (NUMROADS - 1 - index) * WIDTHROAD, WIDTH, WIDTHROAD, c);
+		road.display(0, (NUMROADS - 1 - index) * WIDTHROAD, WIDTH, WIDTHROAD,c);
 
 	}
 	function displayMe() {
@@ -169,7 +174,8 @@ var createApp = function(canvas) {
 				return;
 			}
 			//check if at boudary.
-			if ((me.pos == 0 && controlDir == 1) || (me.pos == NUMLATERALPOS - 1 && controlDir == -1))
+			if ((me.pos == 0 && controlDir == 1) || 
+				(me.pos == NUMLATERALPOS - 1 && controlDir == -1))
 				return;
 			//check if there is an obstacle on the left.
 			roads[SPAWNROAD].obstacles.forEach(function(item) {
@@ -187,7 +193,8 @@ var createApp = function(canvas) {
 				return;
 			}
 			//check if at boudary.
-			if ((me.pos == NUMLATERALPOS - 1 && controlDir == 1) || (me.pos == 0 && controlDir == -1)) {
+			if ((me.pos == NUMLATERALPOS - 1 && controlDir == 1) || 
+				(me.pos == 0 && controlDir == -1)) {
 				return;
 			}
 			//check obstacles
@@ -235,7 +242,7 @@ var createApp = function(canvas) {
 		var temp = roads.slice(1);
 		var newRoad = generateRoad();
 		if (temp[temp.length - 1].type == "river" && newRoad.type != "river") {
-			newRoad = new Road("safe", "green", LATERALOFFSET, NUMLATERALPOS, 1);
+			newRoad = new Road("safe","green",LATERALOFFSET,NUMLATERALPOS,1);
 		}
 		//create a valid path.
 		var oldRoad = temp[temp.length - 1];	

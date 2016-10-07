@@ -13,6 +13,8 @@ class Road {
 		this.generateObstaclesAndCoins(subEleWidth, numLateral);
 		this.spawnInterval = getRandomInt(15, 20);
 		this.subEleWidth = subEleWidth;
+		//speed is rondom if the road is not a river.
+		//the log speed is constant.
 		if (type == "river") {
 			this.speed = 0.1 * direction;
 		}else {
@@ -21,24 +23,22 @@ class Road {
 	}
 	generateObstaclesAndCoins(obstacle_width, numLateral) {
 		//randomly generate obstacles and coins.
+		var obstaclesIndex = Array(numLateral).fill();
 		var obstacles = [];
 		var coins = [];
 		var bombs = [];
 		if (this.type != "safe")
 			return;
-		var obstacles = [];
-		for (var i = 0; i < numLateral; i++) {
+		obstaclesIndex.forEach(function(item, i) {
 			if (Math.random() < 0.6 && i % 2 == 0) {
 				obstacles.push(new Bush(i, obstacle_width));
-				this.obstacleCells[i] = 1;
-				continue;
 			}
 			else if (Math.random() < 0.1) {
 				coins.push(new Coin(i, obstacle_width));
 			} else if (Math.random() < 0.25) {
 				bombs.push(new Bomb(i, obstacle_width));
 			}
-		}
+		})
 		this.obstacles = obstacles;
 		this.coins = coins;
 		this.bombs = bombs;
@@ -47,9 +47,11 @@ class Road {
 	addSprite(width, numLateral) {
 		if (this.type == "road"){
 			if (this.speed < 0)
-				this.cars.push(new Car(this.speed, 0, numLateral, "resources/car_3_reverse.png", width));
+				this.cars.push(new Car(this.speed, 0, numLateral, 
+					"resources/car_3_reverse.png", width));
 			else
-				this.cars.push(new Car(this.speed, 0, -1, "resources/car_2.png", width));
+				this.cars.push(new Car(this.speed, 0, -1, 
+					"resources/car_2.png", width));
 		}
 		else if (this.type == "river") {
 			if (this.speed < 0)
@@ -61,7 +63,8 @@ class Road {
 
 	display(startX, startY, width, height, context) {
 		if (this.type == "road") {
-			context.drawImage(this.image, startX - 1, startY, width + 4, height);
+			context.drawImage(this.image, startX - 1, startY,
+			 width + 4, height);
 		} else {
 			context.fillStyle=this.color;
 			context.fillRect(startX, startY, width, height);
@@ -105,7 +108,8 @@ class Car {
 	}
 	display(startY, height, context) {
 		this.update();
-		context.drawImage(this.image, this.pos * this.width - 3, startY + 10, this.width + 6, height - 20);
+		context.drawImage(this.image, this.pos * this.width - 3, startY + 10, 
+			this.width + 6, height - 20);
 	}
 }
 
@@ -117,10 +121,12 @@ class Bush {
 		this.pos = pos;
 	}
 	display(startY, height, context) {
-		context.drawImage(this.image, this.pos * this.width, startY, this.width, height);
+		context.drawImage(this.image, this.pos * this.width, startY, 
+			this.width, height);
 	}
 }
 class Coin {
+	//initialization
 	constructor(pos, width) {
 		this.image = new Image();
 		this.image.src = "resources/coin.png";
@@ -128,11 +134,13 @@ class Coin {
 		this.pos = pos;
 	}
 	display(startY, height, context) {
-		context.drawImage(this.image, this.pos * this.width + 8, startY + 8, this.width - 16, height - 16);
+		context.drawImage(this.image, this.pos * this.width + 8, startY + 8, 
+			this.width - 16, height - 16);
 	}
 }
 
 class Bomb {
+	//initialization
 	constructor(pos, width) {
 		this.image = new Image();
 		this.image.src = "resources/bomb.png";
@@ -140,11 +148,13 @@ class Bomb {
 		this.pos = pos;
 	}
 	display(startY, height, context) {
-		context.drawImage(this.image, this.pos * this.width + 8, startY + 8, this.width - 16, height - 16);
+		context.drawImage(this.image, this.pos * this.width + 8, startY + 8, 
+			this.width - 16, height - 16);
 	}
 }
 
 class Me {
+	//initialization
 	constructor(position) {
 		this.meImage = new Image();
 		this.meImage.src = "resources/me.png";
@@ -159,6 +169,7 @@ class Me {
 }
 
 class Log {
+	//initialization
 	constructor(speed, pos, width) {
 		this.width = width;
 		this.speed = speed;
@@ -174,7 +185,8 @@ class Log {
 	}
 	display(startY, height, context) {
 		this.update();
-		context.drawImage(this.image, this.pos * this.width, startY + 10, this.width , height - 20);
+		context.drawImage(this.image, this.pos * this.width, startY + 10, 
+			this.width , height - 20);
 	}
 	carryMe(me) {
 		this.carry = me;
