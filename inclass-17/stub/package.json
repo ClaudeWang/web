@@ -1,0 +1,24 @@
+{
+  "name": "stub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "test": "mocha --opts mocha.opts *.spec.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "isomorphic-fetch": "^2.2.1",
+    "mocha": "^3.1.2",
+    "nodemon": "^1.11.0"
+  }
+}
