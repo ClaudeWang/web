@@ -2,7 +2,6 @@ import React from 'react'
 import {navToMain} from '../../actions'
 import {connect} from 'react-redux'
 
-
 const ProfilePage = ({dispatch, profilePackage}) => {
 	return (
 			<div id="profile-body">
@@ -87,7 +86,7 @@ const FormDiv = ({email, zipcode, dob}) => {
 		</div><br />
 		<div className="row" id="submit-changes-container">
 			<button className="btn btn-primary" id="submitChanges" 
-			onClick={submitChanges}>change</button>
+			>change</button>
 		</div>
 	</div>
 	)
