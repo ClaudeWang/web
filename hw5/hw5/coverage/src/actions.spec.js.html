@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/actions.spec.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">src/</a> actions.spec.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">19.64% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>11/56</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>4/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">7.69% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/13</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">15.09% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>8/53</span>
+      </div>
+      <div class='fl pad1y'>
+        <span class="strong">1 branch</span>
+        <span class="quiet">Ignored</span>  &nbsp;&nbsp;&nbsp;&nbsp;
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { expect } from 'chai'
+import fetch, { mock } from 'mock-fetch'
+import {updateProfile, follows, articles, warningText} from './reducer'
+import mockery from 'mockery'
+import {url} from './actions'
+import {updateWarningText} from './components/login/loginControl'
+import {navToMain, navToLogin, navToProfile} from './actions'
+describe('Test the actions', <span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    l</span>et resource
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    b</span>eforeEach(<span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        if (mockery.enable) {</span>
+<span class="cstat-no" title="statement not covered" >            m</span>ockery.enable({warnOnUnregistered: false, useCleanCache:true})
+<span class="cstat-no" title="statement not covered" >            m</span>ockery.registerMock('node-fetch', fetch)
+<span class="cstat-no" title="statement not covered" >            r</span>equire('node-fetch')
+<span class="cstat-no" title="statement not covered" >            r</span>esource = require('./actions').resource
+        }
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    a</span>fterEach(<span class="fstat-no" title="function not covered" >() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        if (mockery.enable) {</span>
+<span class="cstat-no" title="statement not covered" >            m</span>ockery.deregisterMock('node-fetch')
+<span class="cstat-no" title="statement not covered" >            m</span>ockery.disable()
+        } 
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    i</span>t('resource should be a resource', <span class="fstat-no" title="function not covered" >(done)=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >        m</span>ock(`${url}/headlines`,{
+            method: 'GET',
+            headers: {'Content-Type':'application/json'},
+            json:{headlines: 'testHeadline'}
+        })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        r</span>esource("GET", 'headlines')
+        .then(<span class="fstat-no" title="function not covered" >r =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            e</span>xpect(r.headlines).to.equal('testHeadline');
+<span class="cstat-no" title="statement not covered" >            d</span>one();
+        })
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    i</span>t('resource should give me the http error', <span class="fstat-no" title="function not covered" >(done)=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >        m</span>ock(`${url}/noneExistingURL`,{
+            status: 404,
+            method: 'GET',
+            headers: {'Content-Type':'application/json'}
+        })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        r</span>esource("GET", 'noneExistingURL')
+        .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >r</span></span> =&gt; done())
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    i</span>t('resource should be POSTable', <span class="fstat-no" title="function not covered" >(done)=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >        c</span>onst username = 'testUser'
+<span class="cstat-no" title="statement not covered" >        c</span>onst password = 'testPassword'
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        m</span>ock(`${url}/login`,{
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            json:{username: username, result: "success"}
+        })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        r</span>esource("POST", 'login', {username: username, password: password})
+        .then(<span class="fstat-no" title="function not covered" >r =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            e</span>xpect(r.result).to.equal('success');
+<span class="cstat-no" title="statement not covered" >            d</span>one();
+        })
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    i</span>t('should update error message', <span class="fstat-no" title="function not covered" >(done)=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >        c</span>onst result = updateWarningText('fail', 'failMessage');
+<span class="cstat-no" title="statement not covered" >        e</span>xpect(result.warningText).to.equal('failMessage');
+<span class="cstat-no" title="statement not covered" >        e</span>xpect(result.type).to.equal('fail');
+<span class="cstat-no" title="statement not covered" >        d</span>one();
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    i</span>t('should update success message', <span class="fstat-no" title="function not covered" >(done)=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >        c</span>onst result = updateWarningText('success', 'successMessage');
+<span class="cstat-no" title="statement not covered" >        e</span>xpect(result.warningText).to.equal('successMessage');
+<span class="cstat-no" title="statement not covered" >        e</span>xpect(result.type).to.equal('success');
+<span class="cstat-no" title="statement not covered" >        d</span>one();
+    })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    i</span>t('should navigate', <span class="fstat-no" title="function not covered" >(done)=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >        c</span>onst main = navToMain();
+<span class="cstat-no" title="statement not covered" >        e</span>xpect(main.type).to.equal('toMain');
+<span class="cstat-no" title="statement not covered" >        c</span>onst login = navToLogin();
+<span class="cstat-no" title="statement not covered" >        e</span>xpect(login.type).to.equal('toLogin');
+<span class="cstat-no" title="statement not covered" >        c</span>onst profile = navToProfile();
+<span class="cstat-no" title="statement not covered" >        e</span>xpect(profile.type).to.equal('toProfile');
+<span class="cstat-no" title="statement not covered" >        d</span>one();
+    })
+  
+})</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Oct 27 2016 21:44:08 GMT-0500 (CDT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

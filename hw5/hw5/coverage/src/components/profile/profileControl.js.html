@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/components/profile/profileControl.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">all files</a> / <a href="index.html">src/components/profile/</a> profileControl.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>0/0</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// let fields = ["displayName", "email", "phone", "zipcode", "password", "passwordConf"];
+// //mapping each id to its field name. Used for alert messages.
+// let mapFields = {"displayName":"displayName", "email": "Email Adress",
+// "phone": "Phone Number", "zipcode" : "Zip Code", 
+// "password": "Password", "passwordConf": "Password Confirmation"};
+// let update_text = document.getElementById("update-text");
+// // window.onload =  function() {
+// // 	document.getElementById("submitChanges").onclick = submitChanges;
+// // }
+&nbsp;
+&nbsp;
+// function submitChanges() {
+// 	var valid = true;
+// 	var isValidField;
+// 	var count = 0;
+// 	var changedFields = [];
+// 	//got thought filled fields and check validity.
+// 	fields.forEach(function(item, index) {
+// 		if (document.getElementById(fields[index]).value != "") {
+// 			count++;
+// 			isValidField = validateFields(index);
+// 			valid = (valid &amp;&amp; isValidField);
+// 			//when the field is not empty.
+// 			if (!isValidField) {
+// 				document.getElementById("update-text").innerHTML = ("The field " + mapFields[fields[index]] + "  is not of the correct format");
+// 				document.getElementById("update-text").style = "display:block; color:red";
+// 			};
+// 			changedFields.push(item)
+// 		}
+// 	});
+// 	//if there is field that is not empty and the input fields are valid.
+// 	if (valid &amp;&amp; count != 0) {
+// 		//must confirm that password and passowrd confirm to be the same.
+// 		if (document.getElementById("password").value != document.getElementById("passwordConf").value) {
+// 			document.getElementById("update-text").innerHTML = ("Password and password confirmation must be the same.\n");
+// 			document.getElementById("update-text").style = "display:block; color:red";
+// 			return;
+// 		}
+// 		else {
+// 			if(document.getElementById("password").value != ""){
+// 				var firstChar = document.getElementById("password").value.charAt(0);
+// 				if (firstChar &gt;= '0' &amp;&amp; firstChar &lt;= '9') {
+// 					document.getElementById("update-text").innerHTML = ("Password must not start with a digit.\n");
+// 					document.getElementById("update-text").style = "display:block; color:red";
+// 					return;
+// 				}
+// 			}
+// 			var updated = "";
+// 			changedFields.forEach(function(item, index) {
+// 				//if identical, don't consider it as change.
+// 				if(document.getElementById("label-" + item).innerHTML == document.getElementById(item).value){
+// 					document.getElementById(item).value = "";
+// 					count--;
+// 				}
+// 				//if not, add it to the alert message.
+// 				else{
+// 					var oldValue = document.getElementById("label-" + item).innerHTML;
+// 					document.getElementById("label-" + item).innerHTML = document.getElementById(item).value;
+// 					document.getElementById(item).value = "";
+// 					updated += ("\"" + item + "\"" + ": ");
+// 					updated += "Changed from " + oldValue + " to " + document.getElementById("label-" + item).innerHTML + "\n";
+// 				}
+// 			});
+// 			if (count == 0){
+// 				return;
+// 			}
+// 			if (count == 1){
+// 				//alert when there is only one field is updated.
+// 				document.getElementById("update-text").innerHTML = ("Field has been successfully updated!\n");
+// 				document.getElementById("update-text").style = "display:block; color:green";
+// 			}else{
+// 				//alert when multiple fields are updated.
+// 				document.getElementById("update-text").innerHTML = ("Fields have been successfully updated!\n");
+// 				document.getElementById("update-text").style = "display:block; color:green";
+// 			}
+// 		}
+// 	}
+// }
+// function validateFields(index) {
+// 	return document.getElementById(fields[index]).checkValidity();
+// }
+&nbsp;
+&nbsp;
+// export {submitChanges}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Oct 27 2016 21:44:08 GMT-0500 (CDT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
