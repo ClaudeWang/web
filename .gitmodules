@@ -1,0 +1,3 @@
+[submodule "hw6/ricebookbackend"]
+	path = hw6/ricebookbackend
+	url = https://git.heroku.com/ricebookbackend.git
