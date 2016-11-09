@@ -1,0 +1,5 @@
+{
+	"netid": "zw21",
+	"frontend": "http://cwang-ricebook-front.surge.sh/",
+	"backend": "https://ricebookbackend.herokuapp.com/"
+}
