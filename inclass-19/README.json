@@ -1,4 +1,4 @@
 {
 	"netid": "zw21",
-	"backend": "http://cwang-ricebookapp.herokuapp.com/"
+	"backend": "https://ricebookbackend.herokuapp.com/"
 }
