@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch'
 
 const url = 'https://webdev-dummy.herokuapp.com'
 
+// const url = "http://localhost:4000"
 const resource = (method, endpoint, payload) => {
   const options =  {
     method,

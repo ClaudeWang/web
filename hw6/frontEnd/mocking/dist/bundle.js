@@ -21940,6 +21940,7 @@
 	
 	var url = 'https://webdev-dummy.herokuapp.com';
 	
+	// const url = "http://localhost:4000"
 	var resource = function resource(method, endpoint, payload) {
 	  var options = {
 	    method: method,
