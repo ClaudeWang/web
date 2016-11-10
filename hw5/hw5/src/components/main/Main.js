@@ -72,7 +72,7 @@ const ProfileCard = ({avatar, headline, username, dispatch}) => {
                     placeholder="Share your status!" 
                     ref={(node) => newHeadline = node}/>
                 <button className="btn btn-primary" id="update-status-button" 
-                    onClick={r => dispatch(updateHeadline(newHeadline.val))}>
+                    onClick={r => dispatch(updateHeadline(newHeadline.value))}>
                     Update
                 </button>
             </div>

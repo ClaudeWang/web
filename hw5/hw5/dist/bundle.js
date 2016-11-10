@@ -24287,7 +24287,7 @@
 	                    'button',
 	                    { className: 'btn btn-primary', id: 'update-status-button',
 	                        onClick: function onClick(r) {
-	                            return dispatch((0, _mainControl.updateHeadline)(newHeadline.val));
+	                            return dispatch((0, _mainControl.updateHeadline)(newHeadline.value));
 	                        } },
 	                    'Update'
 	                )
