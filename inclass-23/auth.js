@@ -1,47 +1,65 @@
 'user strict'
+const session = require("express-session")
+const passport = require("passport")
+const GoogleStrategy = require('passport-google-oauth20').Strategy
 
-const md5 = require('md5')
-var hashDB =  {}
-var saltMap = {}
-var sessionUser = {}
-var sid = 0;
-var cookieKey = 'sid'
+passport.serializeUser((user, done) => {
+	done(null, 1)
+})
 
-const register = (req, res) => {
-	const salt = "" + (Math.floor(Math.random() * 255) + 1);
-	const body = req.body;
-	saltMap[body.username] = salt;
-	hashDB[body.username] = md5(md5(body.password) + salt);
-	console.log("Successfully register the user! " + body.username);
-	res.send({username: body.username, result: "success"});
+passport.deserializeUser((id, done) => {
+	done(null, "zw21")
+})
+
+
+passport.use(new GoogleStrategy({
+    clientID: "557961606264-kf2a6i81bov74eah5qn09hl7vcliod0v.apps.googleusercontent.com",
+    clientSecret: "R98FcmWRMaENGVq84h57qGDj",
+    callbackURL: "http://localhost:3000/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+	return cb("", "zw21")
+  }
+));
+
+//functions
+function hello(req, res) {
+	res.send("Hello there")
 }
 
-const login = (req, res) => {
-	//generate the hash.
-	const body = req.body;
-	const salt = saltMap[body.username];
-	if (!salt) {
-		console.log("The username has not been registered");
-		res.sendStatus(401);
-		return;
+function logout(req, res) {
+	req.logout();
+	res.redirect('/');
+}
+
+function isLoggedIn(req, res, next) {
+	if (req.isAuthenticated()) {
+		next()
 	} else {
-		const hashedResult = md5(md5(body.password) + salt);
-		if (hashDB[body.username] === hashedResult) {
-			console.log("Authentification success");
-			res.cookie(cookieKey, sid, {maxAge: 3600 * 1000, httpOnly: true})
-			res.send({username: body.username, result: "success"});
-			sessionUser[sid] = body.username;
-			sid++;
-			return;
-		} else {
-			console.log("wrong password")
-			res.sendStatus(401);
-			return;
-		}
+		res.redirect("/login")
 	}
 }
 
+function profile(req, res) {
+	res.send('Ok here is the profile')
+}
+
+function fail(req, res) {
+	res.send('Failed')
+}
+
 module.exports = app => {
-	app.post('/register', register)
-	app.post('/login', login)
+	app.use(session({secret: 'R98FcmWRMaENGVq84h57qGDj'}))
+	app.use(passport.initialize())
+
+	app.use('/login', passport.authenticate('google', { scope: ['profile'] }))
+	app.use('/callback', passport.authenticate('google', {
+		failureRedirect: '/fail' }), function(req, res) {
+	    // Successful authentication, redirect home.
+	    res.redirect('/profile');
+	})
+	app.use('/profile', isLoggedIn, profile)
+	app.use('/fail', fail)
+	app.use('/logout', logout)
+	app.use('/', hello)
 }
