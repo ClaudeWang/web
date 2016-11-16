@@ -38,8 +38,8 @@ const login = (req, res) => {
 			redis.hmset(sid, {"username" : body.username, "hashedResult": hashedResult})
 			redis.hgetall(sid, function(error, userObj) {
 				console.log(sid + ' mapped to ' + userObj)
+				sid++;
 			})
-			sid++;
 			return;
 		} else {
 			console.log("wrong password")
@@ -47,6 +47,18 @@ const login = (req, res) => {
 			return;
 		}
 	}
+}
+
+const isLoggedIn = (req, res) => {
+	const id = 0;
+	redis.hgetall(id, function(error, userObj) {
+		if (userObj != undefined) {
+			console.log(userObj.username + " already signed in.")
+			next();
+		} else {
+			res.sendStatus(401);
+		}
+	})
 }
 
 module.exports = app => {
