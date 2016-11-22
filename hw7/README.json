@@ -1,0 +1,5 @@
+{ 
+     "netid": "sep1",
+  "frontend": "http://cwang-ricebook-hw7.surge.sh",
+   "backend": "https://cwang-hw7backend.herokuapp.com"
+}
