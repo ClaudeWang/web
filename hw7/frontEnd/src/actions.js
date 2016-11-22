@@ -1,7 +1,8 @@
 import fetch from 'isomorphic-fetch'
 
 //const url = 'https://webdev-dummy.herokuapp.com'
-const url = 'http://localhost:8080'
+// const url = 'http://localhost:8080'
+const url = 'https://cwang-hw7backend.herokuapp.com'
 const resource = (method, endpoint, payload) => {
   const options =  {
     method,
