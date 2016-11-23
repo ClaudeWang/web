@@ -12,23 +12,47 @@ function filterArticles(articles, keyword) {
     return filteredArticles;
 }
 
+/*This method is commented out because a temporary method is 
+there to perform the same function. In hw8, this will be used.*/
+
 //add a new Article
+// function addNewArticle(textField, image) {
+// 	//add text
+// 	return (dispatch) => {
+// 		if (textField.value.length == 0) {
+// 			return;
+// 		}
+// 		const fd = new FormData();
+// 		fd.append('text', textField.value);
+// 		if (image) {
+// 			fd.append("image", image);
+// 		}
+// 		fetch(url + "/article", {
+// 			method: "POST",
+// 			credentials: 'include',
+// 			body: fd
+// 		})
+// 		.then(r => 
+// 			{
+// 				textField.value = ""
+// 				dispatch(fetchArticles());
+// 				dispatch({type: 'clearText'}) 
+// 			})
+// 	}
+// }
+
+
 function addNewArticle(textField, image) {
 	//add text
 	return (dispatch) => {
 		if (textField.value.length == 0) {
 			return;
 		}
-		const fd = new FormData();
-		fd.append('text', textField.value);
+		let request = {text: textField.value}
 		if (image) {
-			fd.append("image", image);
+			request.image = image;
 		}
-		fetch(url + "/article", {
-			method: "POST",
-			credentials: 'include',
-			body: fd
-		})
+		resource("POST", "article", request)
 		.then(r => 
 			{
 				textField.value = ""
