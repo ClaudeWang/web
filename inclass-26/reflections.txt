@@ -1,0 +1,40 @@
+What did you hope to learn but did not?
+
+I basically learned everything I expected to learn in this class.
+It would be nice to cover some network basics, but I guess this is
+outside the scope of the class.
+
+What did you really enjoy learning about?
+
+I really enjoy learning about building the dynamically rendered pages.
+It was less intuitive at the beginning but I ended up finding it the
+coolest thing that I learned in this class. Additionally, I think
+learning about using different services to host our own website is also
+cool.
+
+What worked well in the course? and how?
+
+I think the professor is very responsible and the assignment is extremely
+useful considering we continously improved it and added stuff to it. I
+also like how it is teaching the most up-to-date technology.
+
+What did not work well in the course and how might it be improved?
+
+I feel like there is not enough support for inclass assignments. Dr. Pollack
+is always helpful during class. However, if we were stuck on a problem, the
+long line for waiting for one's turn to ask a question is very intimidating.
+I hope in the future there could be more in-class TAs who could provide more
+help.
+
+What could I have done to help you more, presentation of material, design of
+in class exercises, goals of projects -and be specific please!
+
+I would say the inclass assignments are really useful but frustrating as well.
+Sometimes the material covered in class was not enough to finish the in class
+exercises. Most of the time is wasted on googling runtimer errors and waiting
+in line to understand the problem from the very beginning. This could've been
+much easier if there was less general introduction and more in-depth analysis
+of sample code.
+
+Anything else you like to say?
+Yeah! Thanks for the great efforts to organize the class!
