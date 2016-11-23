@@ -74,15 +74,25 @@ function updateProfilePage(oldZipcode, zipcodeField, oldEmail, emailField,
 						dispatch(updateProfileEmail(emailField));
 						break;
 					case 'password':
-						dispatch({
-							type: "password", password: passwordField.value
-						})
-						passwordField.value = ""
-						passswordConf.value = ""
+						dispatch(updatePassword(passwordField.value));
 						break;
 				}
 			})
 		}
+	}
+}
+
+function updatePassword(password) {
+	return (dispatch) => {
+		resource("PUT", "password", {
+			password
+		}).then(r => {
+			dispatch({
+				type: "password", password: passwordField.value
+			})
+			passwordField.value = ""
+			passswordConf.value = ""
+		})
 	}
 }
 
