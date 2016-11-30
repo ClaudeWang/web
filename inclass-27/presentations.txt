@@ -1,0 +1,21 @@
+Which presentation was the most polished and delivered, and why?
+
+I thinks Chao Zhou's presentation is very polished. He gave an overview
+of the current mobile app industry and stated the trend of using hybrid
+apps over native apps. On the other hand, I like Zheng Zhang's live demo.
+It was brave to have a live demo with a 5-minute cap in the first place.
+And I think it is cool that he showed how easy it was to make an animation.
+
+Which topic did you learn the most from and what did you learn?
+
+I learned most from the mobile topic. It seems like nowadays everyting is
+developed mobile only. This was made possible by the different frameworks
+available on the market. There are multiple talks that touch on different
+ways mobile apps have advanced.
+
+Which talk did you like the best and why?
+
+I like prakhar doshi's proressive web apps. First of all, the presentation
+is very well-polished with the help of the tool. Second, I think he addressed
+some solutions and issues of modern web apps and where web apps will be heading.
+I think I could benefit a lot from learning the things he talked about.
