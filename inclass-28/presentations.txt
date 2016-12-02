@@ -1,0 +1,23 @@
+Which presentation was the most polished and delivered, and why?
+
+I think eshtaartha's semantic web lab is very polished. The tool
+that he used for presentation looks very new to me and it looks
+great. Also, his presentaion follows a line of thoughts that
+was presented well with his video. It just makes the style of the
+presentation more consistent.
+
+Which topic did you learn the most from and what did you learn?
+
+I really like the webGL personally. I have not used webGL for
+web graphics. He provided some easy-to-comprehend concepts enough
+for starting off a simple project. I mainly learned how to use
+webGL as a cavas and how to render different shapes with the module.
+
+Which talk did you like the best and why?
+
+I like the discussion of typescript. I think it is useful to know
+about this because it addresses some issues that we did not cover
+during the semester. I also agree with him on that strictly typed
+languages suit bigger projects better. I also like his discussion
+on javascript's problems. It is this kind of talk that makes us
+think about the pros and cons of what we learned in class.
