@@ -1,0 +1,5 @@
+{ 
+     	"netid": "zw21",
+  	"frontend": "http://cwang-hw8-frontend.surge.sh/",
+   	"backend": "https://cwang-hw8-backend.herokuapp.com/"
+}
