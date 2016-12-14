@@ -7,3 +7,6 @@
 [submodule "hw7/backend/cwang-hw7backend"]
 	path = hw7/backend/cwang-hw7backend
 	url = https://git.heroku.com/cwang-hw7backend.git
+[submodule "hw8/cwang-hw8-backend"]
+	path = hw8/cwang-hw8-backend
+	url = https://git.heroku.com/cwang-hw8-backend.git

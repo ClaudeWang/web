@@ -1,0 +1,173 @@
+import {resource, url, navToLogin} from '../../actions'
+import fetch from 'isomorphic-fetch'
+import {fetchProfileArea, refresh} from '../login/loginActions'
+
+function updateProfilePage(oldZipcode, zipcodeField, oldEmail, emailField, 
+	oldPassword, passwordField, passswordConf) {
+	return (dispatch) => {
+		var dispatchList = [];
+		if (zipcodeField.value !== "" && oldZipcode !== zipcodeField.value) {
+			if (zipcodeField.checkValidity())
+				dispatchList.push("zipcode") //queue the dispatch.
+			else {
+				//when thre is an error.
+				dispatch({
+					type: "fail", warningText: "Failed to update. Zipcode" + 
+					" field has the wrong format."
+				});
+				return;
+			}
+		} else {
+			zipcodeField.value = ""
+		}
+
+		if (emailField.value !== "" && oldEmail !== emailField.value) {
+			if (emailField.checkValidity())
+				dispatchList.push("email") //queue the dispatch.
+			else {
+				//when thre is an error.
+				dispatch({type: "fail", warningText: "Failed to update. Email"
+				 + 
+				" field has the wrong format."});
+				return;
+			}			
+		} else {
+			emailField.value = ""
+		}
+		if (passwordField.value !== "" && oldPassword !== passwordField.value) 
+		{
+
+			if (passwordField.value != passswordConf.value){
+				dispatch({type: "fail", warningText: "Failed to update. " + 
+					"Password must match confimation."});
+				return;
+			}
+			else if (passwordField.value.charAt[0] >= '0' 
+				&& passwordField.value.charAt[0] >= '9') {
+				dispatch({type: "fail", warningText: "Failed to update." + 
+					" Password must not start with a digit."});
+				return;
+			}
+			else {
+				dispatchList.push("password")
+			}			
+		} else {
+			passwordField.value = ""; passswordConf.value = "";
+		}
+
+		//only update when there is no error.
+		if (dispatchList.length > 0) {
+			if (dispatchList.indexOf("password") > -1)
+				dispatch({type: "success", 
+					warningText: "Profile has been updated successfully." + 
+					" Password Unchanged."
+				});
+			else
+				dispatch({
+					type: "success", 
+					warningText: "Profile has been updated successfully."
+				});
+			dispatchList.forEach((r) => {
+				switch (r) {
+					case 'zipcode': 
+						dispatch(updateProfileZipcode(zipcodeField));
+						break;
+					case 'email':
+						dispatch(updateProfileEmail(emailField));
+						break;
+					case 'password':
+						dispatch(updatePassword(passwordField.value));
+						break;
+				}
+			})
+		}
+	}
+}
+
+function updatePassword(password) {
+	return (dispatch) => {
+		resource("PUT", "password", {
+			password
+		}).then(r => {
+			dispatch({
+				type: "password", password: passwordField.value
+			})
+			passwordField.value = ""
+			passswordConf.value = ""
+		})
+	}
+}
+
+
+function updateProfileZipcode(zipcodeField) {
+	return (dispatch) => {
+		resource("PUT", "zipcode", {zipcode: zipcodeField.value})
+		.then (r => {
+			dispatch({type: "zipcode", zipcode: zipcodeField.value});
+			zipcodeField.value = "";
+		})
+	}
+}
+
+function updateProfileEmail(emailField) {
+
+	return (dispatch) => {
+		resource("PUT", "email", {email: emailField.value})
+		.then (r => {
+			dispatch({type: "email", email: emailField.value})
+			emailField.value = "";
+		})
+	}
+}
+
+function updateProfilePic(profilePicField) {
+
+	return (dispatch) => {
+		const fd = new FormData();
+		fd.append('image', profilePicField.target.files[0]);
+		fetch(url + '/avatar', {
+			method: "PUT",
+			credentials: 'include',
+			body: fd
+		})
+		.then(r => dispatch(refresh()))	
+	}
+
+}
+
+function link(username, password) {
+	return (dispatch) => {
+		resource("POST", "link", 
+			{
+				mergeUsername: username.value, 
+				password: password.value
+			})
+		.then(r => {
+			//successfully
+			dispatch({
+				type: "success", 
+				warningText: "The account has been linked."
+			});
+			username.value = ""
+			password.value = ""
+			dispatch(navToLogin())
+		})
+		.catch(e => {
+			dispatch({
+					type: "fail", 
+					warningText: "Error: Make sure you are logged in as" + 
+					"third-party user and " +
+					"the account to merge with is valid."
+				});
+		})
+	}
+}
+
+function linkThird() {
+	window.location.href = url + "/googleLink"
+}
+
+function unlinkThird() {
+	window.location.href = url + "/googleUnlink"
+}
+export {updateProfilePic, updateProfilePage, link, linkThird, unlinkThird}

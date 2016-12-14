@@ -1,0 +1,17 @@
+
+> starter@1.0.0 e2e:base /Users/Wangziyun/Documents/Fall-2016/comp531/web/hw6/frontEnd/hw6
+> mocha --opts e2e/mocha.opts e2e/*.spec.js "--reporter" "xunit"
+
+<testsuite name="Mocha Tests" tests="11" failures="0" errors="0" skipped="0" timestamp="Wed, 09 Nov 2016 04:38:35 GMT" time="26.419">
+<testcase classname="Test Main Page add functionalities" name="Remove the Follower user and verify following count decreases by one/Add the 'Follower'user and verify following count increases by one" time="1.955"/>
+<testcase classname="Test Main Page add functionalities" name="Create new article and validate article appears in feed" time="0.574"/>
+<testcase classname="Test Main Page add functionalities" name="Search for special 'Only One Article Like This' article and verify author" time="0.25"/>
+<testcase classname="Test Login Functionalities" name="should log in as the test user" time="0.144"/>
+<testcase classname="Test Login Functionalities" name="Update the headline and verify the change" time="6.639"/>
+<testcase classname="Test Main Page functionalities" name="Edit an article and validate changed article text." time="0.612"/>
+<testcase classname="Test Profile Page" name="Update user email and verify" time="0.861"/>
+<testcase classname="Test Profile Page" name="Update user zipcode and verify" time="0.79"/>
+<testcase classname="Test Profile Page" name="Update user password and verify" time="0.977"/>
+<testcase classname="Test Register Functionality" name="should register a user and display the appropriate message" time="1.256"/>
+<testcase classname="shutdown" name="now" time="0.114"/>
+</testsuite>
