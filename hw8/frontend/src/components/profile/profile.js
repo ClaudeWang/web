@@ -5,7 +5,8 @@ import {initialVisit} from '../login/loginActions'
 import {updateProfilePage, updateProfilePic, link, 
 	 linkThird, unlinkThird} from './profileActions'
 
-const ProfilePage = ({dispatch, profilePackage, warningTextPackage, loginType, isLinked}) => {
+const ProfilePage = ({dispatch, profilePackage, warningTextPackage, 
+	loginType, isLinked}) => {
 	return (
 			<div id="profile-body">
 				<h1 className="bg-primary" id="profile_title">RiceBook</h1>
@@ -20,7 +21,8 @@ const ProfilePage = ({dispatch, profilePackage, warningTextPackage, loginType, i
 					zipcode={profilePackage.zipcode}
 					dob={profilePackage.dob}
 					password={profilePackage.password}/> <br /><br />
-				<LinkControl dispatch={dispatch} loginType={loginType} isLinked={isLinked}/>
+				<LinkControl dispatch={dispatch} loginType={loginType} 
+				isLinked={isLinked}/>
 			</div>
 		)
 }
@@ -71,7 +73,8 @@ const FormDiv = ({dispatch, email, zipcode, dob, password}) => {
 				<div className="groupEntry">
 					<label id="label-email">{email}</label>
 					<input type="email" name="email_address" id="email" 
-					placeholder="Your email address" pattern=".+@.+\..+" ref={r => emailField = r}/>
+					placeholder="Your email address" pattern=".+@.+\..+" 
+					ref={r => emailField = r}/>
 				</div>
 			</div>
 		</div><br />
@@ -81,7 +84,8 @@ const FormDiv = ({dispatch, email, zipcode, dob, password}) => {
 				<div className="groupEntry">
 					<label id="label-zipcode">{zipcode}</label> 
 					<input type="text" name="zipcode" id="zipcode" 
-					placeholder="Your zip code" pattern="[0-9]{5}" ref={r => zipcodeField = r}/>
+					placeholder="Your zip code" pattern="[0-9]{5}" 
+					ref={r => zipcodeField = r}/>
 				</div>
 			</div>
 		</div><br />
@@ -134,7 +138,7 @@ const LinkToNormal = ({dispatch}) => {
 	let username, password
 	return(
 		<div id="link">
-			<h2 className="text-primary">Link/UnLink Your Account</h2>
+			<h2 className="text-primary">Link Your Account</h2>
 			<div id="login-fields-div">
 				<div className="form-group">
 					<label>Account Name:</label>
